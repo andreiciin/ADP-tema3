@@ -1,0 +1,33 @@
+Nume: Ciineanu Stefan-Andrei
+Grupa: 336CA
+Username pe ACS: stefan.ciineanu
+
+Aceasta tema se rezuma in principal la MPI_Send si MPI_Recv.
+Pentru prima etapa, cei 3 coordonatori citesc datele din
+fisierele corespunzatoare clusterelor si vor salva intr-o
+matrice cu 3 (coordonatori) randuri si (workers) coloane 
+elementele citite. 
+Urmatorul pas consta in informarea workerilor despre cine 
+este coordonatorul lor, apoi voi parcurge coordonatorii si
+fiecare isi vor trimite intre ei linia cu workeri din matrice.
+Dupa acestea, fiecare coordonator va avea matricea completa cu
+topologia si o vor afisa. In ceea ce priveste workerii, dupa 
+ce coordonatorii au aflat topologia, acestia o vor trimite 
+catre workerii lor care o vor afisa.
+Pentru partea a doua a temei am gandit astfel: fiecare coordo-
+nator va trimite workerului o sectiune din vectorul v, iar
+workerul va dubla elementele. Aceasta sectiune se va calcula
+ca lungimea vectorului / nr. de workeri. In cazul in care va 
+ramane un rest, ultimul worker al coordonatorului 2 va adauga
+elementele ramase din vectorul mare la vectorul sau. 
+Astfel, pentru inceput calculez numarul total de workeri si 
+citesc N, initalizez v de coordonatorul 0, iar apoi distribui
+aceste informatii intre coordonatori. In continuare, fiecare
+coordonator va crea vectori de dimensiunea N / total_workeri
+in care va fi impartit vectorul v, pentru a-i trimite 
+workerilor. Dupa aceasta, workerii primesc aceste subsiruri, 
+vor face procesul de dublare si il vor trimite inapoi la 
+coordonatorul lor. Odata ce primesc subsirurile de la workeri, 
+coordonatorii vor reuni aceste subsiruri in sirul clusterului.
+Aceste siruri vor fi trimise la coordonatorul 0 ce va reasambla
+subsirurile in sirul v dublat si il va afisa. 
